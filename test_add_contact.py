@@ -4,20 +4,20 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
-from group import Group_сompany
+from group import GroupСontact
 
 
-class TestAddCompany(unittest.TestCase):
+class TestAddContact(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Chrome()
         self.wd.implicitly_wait(30)
 
-    def test_add_company(self):
+    def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_company_page(wd)
-        self.create_company(wd, Group_сompany(name="Yana", lastname="H", nickname="yana_haus", title="Title", company="Company22",
+        self.open_contact_page(wd)
+        self.create_contact(wd, GroupСontact(name="Yana", lastname="H", nickname="yana_haus", title="Title", company="Company22",
                             adress="Spb", home="8990", mobile="3434", work_phone="3434", fax="3443",
                             email="yana.haus@mail.ru", bday="7", bmonth="June", byear="1987", aday="1", amonth="March",
                             ayear="2000"))
@@ -25,12 +25,12 @@ class TestAddCompany(unittest.TestCase):
         self.logout(wd)
 
 
-    def test_add_empty_company(self):
+    def test_add_empty_contact(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_company_page(wd)
-        self.create_company(wd, Group_сompany(name="", lastname="", nickname="", title="", company="",
+        self.open_contact_page(wd)
+        self.create_contact(wd, GroupСontact(name="", lastname="", nickname="", title="", company="",
                             adress="", home="", mobile="", work_phone="", fax="",
                             email="", bday="", bmonth="", byear="", aday="", amonth="",
                             ayear=""))
@@ -43,8 +43,8 @@ class TestAddCompany(unittest.TestCase):
     def return_home_page(self, wd):
         wd.find_element_by_link_text("home").click()
 
-    def create_company(self, wd, group):
-        # fill company form
+    def create_contact(self, wd, group):
+        # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(group.name)
@@ -76,22 +76,24 @@ class TestAddCompany(unittest.TestCase):
         wd.find_element_by_name("email").send_keys(group.email)
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(group.bday)
-        wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(group.bmonth)
+        if group.bmonth != '':
+            wd.find_element_by_name("bmonth").click()
+            Select(wd.find_element_by_name("bmonth")).select_by_visible_text(group.bmonth)
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(group.byear)
         wd.find_element_by_name("aday").click()
         Select(wd.find_element_by_name("aday")).select_by_visible_text(group.aday)
-        wd.find_element_by_name("amonth").click()
-        Select(wd.find_element_by_name("amonth")).select_by_visible_text(group.amonth)
+        if group.amonth != '':
+            wd.find_element_by_name("amonth").click()
+            Select(wd.find_element_by_name("amonth")).select_by_visible_text(group.amonth)
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(group.ayear)
         # submit company creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def open_company_page(self, wd):
+    def open_contact_page(self, wd):
         wd.find_element_by_link_text("add new").click()
 
     def login(self, wd, username, password):
