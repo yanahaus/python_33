@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
-from group import GroupСontact
+from class_for_test import Сontact
 
 
 class TestAddContact(unittest.TestCase):
@@ -13,37 +13,33 @@ class TestAddContact(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_contact(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, username="admin", password="secret")
-        self.open_contact_page(wd)
-        self.create_contact(wd, GroupСontact(name="Yana", lastname="H", nickname="yana_haus", title="Title", company="Company22",
+        self.login(username="admin", password="secret")
+        self.create_contact(Сontact(name="Yana", lastname="H", nickname="yana_haus", title="Title", company="Company22",
                             adress="Spb", home="8990", mobile="3434", work_phone="3434", fax="3443",
                             email="yana.haus@mail.ru", bday="7", bmonth="June", byear="1987", aday="1", amonth="March",
                             ayear="2000"))
-        self.return_home_page(wd)
-        self.logout(wd)
+        self.logout()
 
 
     def test_add_empty_contact(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, username="admin", password="secret")
-        self.open_contact_page(wd)
-        self.create_contact(wd, GroupСontact(name="", lastname="", nickname="", title="", company="",
+        self.login(username="admin", password="secret")
+        self.create_contact(Сontact(name="", lastname="", nickname="", title="", company="",
                             adress="", home="", mobile="", work_phone="", fax="",
                             email="", bday="", bmonth="", byear="", aday="", amonth="",
                             ayear=""))
-        self.return_home_page(wd)
-        self.logout(wd)
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def return_home_page(self, wd):
+    def return_home_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("home").click()
 
-    def create_contact(self, wd, group):
+    def create_contact(self, group):
+        wd = self.wd
+        self.open_contact_page()
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -92,11 +88,15 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").send_keys(group.ayear)
         # submit company creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_home_page()
 
-    def open_contact_page(self, wd):
+    def open_contact_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd, username, password):
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -104,7 +104,8 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):

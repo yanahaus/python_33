@@ -5,7 +5,7 @@ class Group:
         self.header = header
         self.footer = footer
 
-class GroupСontact:
+class Сontact:
 
     def __init__(self, name, lastname, nickname, title, company, adress, home, mobile, work_phone, fax,
                        email, bday, bmonth, byear, aday, amonth, ayear):
