@@ -31,8 +31,9 @@ class GroupHelper:
     def edit(self, group):
         wd = self.app.wd
         self.open_groups_page()
-        # edit group form
+        # edit contact form
         wd.find_element_by_name("selected[]").click()
+
         wd.find_element_by_name("edit").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
