@@ -2,7 +2,6 @@
 from model.class_for_test import Group
 
 
-
 def test_add_group(app):
     old_groups = app.group.get_group_list()
     group = Group(name="name", header="one", footer="two")
