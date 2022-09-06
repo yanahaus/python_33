@@ -24,7 +24,7 @@ class Group:
 class Contact:
 
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, company=None,
-                 adress=None, homephone=None, mobilephone=None, workphone=None, fax=None, email=None, email2=None,
+                 address=None, homephone=None, mobilephone=None, workphone=None, fax=None, email=None, email2=None,
                  email3=None, bday=None, bmonth=None, byear=None, aday=None,
                  amonth=None, ayear=None, id=None, phone2=None, all_phones_from_home_page=None):
         self.firstname = firstname
@@ -33,7 +33,7 @@ class Contact:
         self.nickname = nickname
         self.title = title
         self.company = company
-        self.adress = adress
+        self.address = address
         self.homephone = homephone
         self.mobilephone = mobilephone
         self.workphone = workphone
