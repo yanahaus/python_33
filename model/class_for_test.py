@@ -23,18 +23,18 @@ class Group:
 
 class Contact:
 
-    def __init__(self, name=None, lastname=None, nickname=None, title=None, company=None, adress=None, home=None,
-                 mobile=None, work_phone=None, fax=None, email=None, bday=None, bmonth=None, byear=None, aday=None,
-                 amonth=None, ayear=None, id=None):
+    def __init__(self, name=None, lastname=None, nickname=None, title=None, company=None, adress=None, homephone=None,
+                 mobilephone=None, workphone=None, fax=None, email=None, bday=None, bmonth=None, byear=None, aday=None,
+                 amonth=None, ayear=None, id=None, phone2=None):
         self.name = name
         self.lastname = lastname
         self.nickname = nickname
         self.title = title
         self.company = company
         self.adress = adress
-        self.home = home
-        self.mobile = mobile
-        self.work_phone = work_phone
+        self.homephone = homephone
+        self.mobilephone = mobilephone
+        self.workphone = workphone
         self.fax = fax
         self.email = email
         self.bday = bday
@@ -44,6 +44,7 @@ class Contact:
         self.amonth = amonth
         self.ayear = ayear
         self.id = id
+        self.phone2 = phone2
 
     def __repr__(self):
         return "%s:%s" % (self.id, self.name)

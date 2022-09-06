@@ -1,5 +1,7 @@
 from selenium.webdriver.support.select import Select
 from model.class_for_test import Contact
+import re
+from selenium.webdriver.common.by import By
 
 class ContactHelper:
 
@@ -53,6 +55,17 @@ class ContactHelper:
         self.open_home_page()
         self.contact_cache = None
 
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_xpath("//img[@alt='Details']")[index].click()
+
+
     def fill_contact_form(self, contact):
         wd = self.app.wd
         wd.find_element_by_name("firstname").click()
@@ -71,7 +84,7 @@ class ContactHelper:
         wd.find_element_by_name("address").send_keys(contact.adress)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.home)
+        wd.find_element_by_name("home").send_keys(contact.homephone)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobile)
@@ -118,8 +131,43 @@ class ContactHelper:
                 name = cells[2].text
                 lastname = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(name=name, lastname=lastname, id=id))
+                all_phones = cells[5].text.splitlines()
+                print(all_phones)
+                self.contact_cache.append(Contact(name=name, lastname=lastname, id=id, homephone=all_phones[0],
+                                                  workphone=all_phones[1], mobilephone=all_phones[2],
+                                                  phone2=all_phones[3]))
         return list(self.contact_cache)
+
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_index(index)
+        name = wd.find_element_by_name('firstname').get_attribute('value')
+        lastname = wd.find_element_by_name('lastname').get_attribute('value')
+        id = wd.find_element_by_name('id').get_attribute('value')
+        homephone = wd.find_element_by_name('home').get_attribute('value')
+        workphone = wd.find_element_by_name('work').get_attribute('value')
+        mobilephone = wd.find_element_by_name('mobile').get_attribute('value')
+        phone2 = wd.find_element_by_name('phone2').get_attribute('value')
+        return Contact(name=name, lastname=lastname, id=id, homephone=homephone, workphone=workphone,
+                       mobilephone=mobilephone, phone2=phone2)
+
+
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_xpath("//div[@id='content']").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        phone2 = re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, workphone=workphone,
+                       mobilephone=mobilephone, phone2=phone2)
+
+
+
+
+
 
 
 
