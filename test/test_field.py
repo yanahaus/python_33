@@ -20,6 +20,7 @@ def test_field_on_home_page(app):
     assert contact_from_view_page.phone2 == contact_from_edit_page.phone2"""
 
 
+
 def clear(s):
     return re.sub("[\s ()]", "", s)
 
