@@ -21,6 +21,7 @@ def test_field_on_home_page(app):
 
 
 
+
 def clear(s):
     return re.sub("[\s ()-]", "", s)
 
