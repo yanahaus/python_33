@@ -190,7 +190,9 @@ class ContactHelper:
     def edit_contact_by_id(self, contact, id):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_elements_by_xpath("//img[@alt='Edit']")[id].click()
+        wd.find_element_by_css_selector("tr[name='entry'] a[href='edit.php?id=%s'" % id).click()
+
+       # wd.find_elements_by_xpath("//img[@alt='Edit']")[id].click()
         self.fill_contact_form(contact)
         # submit company creation
         wd.find_element_by_name("update").click()

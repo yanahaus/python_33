@@ -12,7 +12,7 @@ def test_edit_some_contact(app, db, check_ui):
                                    byear="1987", aday="1", amonth="March", ayear="2000", phone2="phone2"))
     old_contacts = db.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = Contact(firstname="Кирилл", lastname="245", nickname="yana_haus1", title="Title1", company="Company221",
+    contact = Contact(firstname="Тимур", lastname="245", nickname="yana_haus1", title="Title1", company="Company221",
                       address="Spb1", homephone="89901", mobilephone="34341", workphone="34341", fax="34431",
                       email="yana.haus1@mail.ru", bday="6", bmonth="March", byear="1988", aday="12", amonth="June",
                       ayear="2001", phone2="phone")
