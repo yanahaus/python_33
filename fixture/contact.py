@@ -1,7 +1,7 @@
 from selenium.webdriver.support.select import Select
 from model.class_for_test import Contact
 import re
-from selenium.webdriver.common.by import By
+
 
 class ContactHelper:
 
