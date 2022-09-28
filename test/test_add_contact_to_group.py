@@ -12,14 +12,14 @@ def test_add_contact_to_group(app, db):
     if len(groups) == 0:
         app.group.create(Group(name='group_for_adding_contact_test'))
     if len(contacts) == 0:
-        app.contact.create_contact(Contact(firstname='contact_for_adding_contact_to_group_test'))
+        app.contact.create(Contact(firstname='contact_for_adding_contact_to_group_test'))
 
     random_group = random.choice(groups)
     old_contacts_in_group = orm.get_contacts_in_group(random_group)
     contacts_not_in_group = []
-    for contact in contacts:
-        if contact not in old_contacts_in_group:
-            contacts_not_in_group.append(contact)
+
+    app.contact.append_contact(contacts, old_contacts_in_group, contacts_not_in_group)
+
     if len(contacts_not_in_group) != 0:
         random_contact = random.choice(contacts_not_in_group)
         app.contact.add_contact_by_id_in_group(random_contact, random_group)

@@ -213,4 +213,11 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value='%s']" % user.id).click()
         wd.find_element_by_name('remove').click()
 
+    def append_contact(self, contacts, old_contacts_in_group, contacts_not_in_group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        for contact in contacts:
+            if contact not in old_contacts_in_group:
+                contacts_not_in_group.append(contact)
+
 
