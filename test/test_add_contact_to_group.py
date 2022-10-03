@@ -30,10 +30,12 @@ def test_add_contact_to_group(app, db):
         app.contact.add_contact_by_id_in_group(random_contact, random_group)
         old_contacts_in_group.append(random_contact)
     else:
-        new_contact = app.contact.create(Contact(firstname="Permanent", lastname="H2", nickname="yana_haus", title="Title",
+        app.contact.create(Contact(firstname="New_not_in_group", lastname="H2", nickname="yana_haus", title="Title",
                                    company="Company22", address="Spb", homephone="8990", mobilephone="3434",
                                    workphone="3434", fax="3443", email="yana.haus@mail.ru", bday="7", bmonth="June",
                                    byear="1987", aday="1", amonth="March", ayear="2000", phone2="233333"))
+        new_contact = max(db.get_contact_list(), key=Contact.id_or_max)
+
         app.contact.add_contact_by_id_in_group(new_contact, random_group)
         old_contacts_in_group.append(new_contact)
 

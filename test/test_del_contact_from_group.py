@@ -13,7 +13,7 @@ def test_del_contact_in_group(app, db):
         app.group.create(Group(name="name", header="one", footer="two"))
         groups = db.get_group_list()
     if len(contacts) == 0:
-        app.contact.create(Contact(firstname="Permanent", lastname="H2", nickname="yana_haus", title="Title",
+        app.contact.create(Contact(firstname="Contact_new", lastname="H2", nickname="yana_haus", title="Title",
                                    company="Company22", address="Spb", homephone="8990", mobilephone="3434",
                                    workphone="3434", fax="3443", email="yana.haus@mail.ru", bday="7", bmonth="June",
                                    byear="1987", aday="1", amonth="March", ayear="2000", phone2="233333"))
